@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="carburant_consommation_action" model="ir.actions.act_window">
+        <field name="name">Consommation de carburant</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">carburant.consommation</field>
+        <field name="view_mode">tree,form,activity,graph,pivot</field>
+    </record>
+    <record id="carburant_consommation_tree" model="ir.ui.view">
+        <field name="name">carburant.consommation.tree</field>
+        <field name="model">carburant.consommation</field>
+        <field name="arch" type="xml">
+            <tree string="La liste  consommations de carburant">
+                <field name="vehicule_id"/>
+                <field name="nb_littre"/>
+                <field name="prix"/>
+                <field name="total"/>
+                <field name="carte_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="carburant_consommation_search" model="ir.ui.view">
+        <field name="model">carburant.consommation</field>
+            <field name="arch" type="xml">
+            <search>
+               <field name="vehicule_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="carburant_consommation_form" model="ir.ui.view">
+        <field name="name">carburant.consommation.form</field>
+        <field name="model">carburant.consommation</field>
+        <field name="arch" type="xml">
+            <form string="Détail d'une consommation de carburant">
+                <sheet>
+                      <group name="group_top" col="4">
+                          <field name="vehicule_id"/>
+                          <field name="nb_littre" />
+                          <field name="prix"/>
+                          <field name="total"/>
+                          <!--<field name="delegation_id"/>-->
+                          <field name="carte_id"/>
+                      </group>
+                  <!-- More elements will be added from here... -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <menuitem
+        name="Carburant"
+        id="menu_carburant_root"/>
+    <menuitem
+        name="Carburant"
+        id="menu_carburant_carburant"
+        parent="menu_carburant_root"
+        sequence="1"/>
+    <menuitem
+        id="menu_consommation_miss"
+        name="Consommation"
+        parent="menu_carburant_carburant"
+        action="carburant_consommation_action"
+        sequence="3"/>
+
+</odoo>
