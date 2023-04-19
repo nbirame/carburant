@@ -23,10 +23,13 @@ class Carte(models.Model):
 
     @api.depends("chargement_ids")
     def _compute_carburant_quantite(self):
+        quantity = []
         for record in self:
             #  quantité pour 100km c'est 15 littre de carburant
             for chage in record.chargement_ids:
-                record.quantite = chage.nb_littre
+                nombre_littre = chage.nb_littre
+                quantity.append(nombre_littre)
+                record.quantite = sum(quantity)
 
     # methode qui permet de calculer le nombre de littre consommer
     @api.depends("consommation_ids")
@@ -46,11 +49,11 @@ class Carte(models.Model):
         for record in self:
             record.restant_littre = record.quantite - record.nb_littre
 
-    @api.constrains("restant_littre")
-    def _check_restant_littre(self):
-        for record in self:
-            if record.restant_littre <= 0:
-                raise ValidationError(_('Veillez chager la carte'))
+    # @api.constrains("restant_littre")
+    # def _check_restant_littre(self):
+    #     for record in self:
+    #         if record.restant_littre <= 0:
+    #             raise ValidationError(_('Veillez charger la carte'))
 
     # méthode qui permet de calculer la cout du chargement
     @api.depends("chargement_ids")

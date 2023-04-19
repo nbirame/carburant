@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <record id="carburant_cartecarburant_action" model="ir.actions.act_window">
-        <field name="name">Carte Carburant</field>
+    <record id="carburant_suivi_essence_action" model="ir.actions.act_window">
+        <field name="name">Suivi Essence</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">carburant.cartecarburant</field>
+        <field name="res_model">carburant.suivi_essence</field>
         <field name="view_mode">tree,form,activity,graph,pivot</field>
     </record>
-    <record id="carburant_cartecarburant_tree" model="ir.ui.view">
-        <field name="name">carburant.cartecarburant.tree</field>
-        <field name="model">carburant.cartecarburant</field>
+    <record id="carburant_suivi_essence_tree" model="ir.ui.view">
+        <field name="name">carburant.suivi_essence.tree</field>
+        <field name="model">carburant.suivi_essence</field>
         <field name="arch" type="xml">
-            <tree string="La liste des cartecarburants de carburant">
+            <tree string="La liste des Suivi du niveau d'essence">
                 <field name="libelle"/>
                 <field name="detenteur"/>
                 <field name="numero"/>
@@ -20,8 +20,8 @@
             </tree>
         </field>
     </record>
-    <record id="carburant_cartecarburant_search" model="ir.ui.view">
-        <field name="model">carburant.cartecarburant</field>
+    <record id="carburant_suivi_essence_search" model="ir.ui.view">
+        <field name="model">carburant.suivi_essence</field>
             <field name="arch" type="xml">
             <search>
                <field name="libelle"/>
@@ -29,11 +29,11 @@
             </search>
         </field>
     </record>
-    <record id="carburant_cartecarburant_form" model="ir.ui.view">
-        <field name="name">carburant.cartecarburant.form</field>
-        <field name="model">carburant.cartecarburant</field>
+    <record id="carburant_suivi_essence_form" model="ir.ui.view">
+        <field name="name">carburant.suivi_essence.form</field>
+        <field name="model">carburant.suivi_essence</field>
         <field name="arch" type="xml">
-            <form string="Détail d'une cartecarburant de carburant">
+            <form string="Détail d'un suivi du niveau d'essence">
                 <sheet>
                       <h1>Informations</h1>
                       <group name="group_top" col="4">
@@ -86,7 +86,7 @@
 
 
     <menuitem
-        name="Carburant"
+        name="Suivi Essence"
         web_icon="carburant,static/description/icon.png"
         id="menu_carburant_root"/>
     <menuitem
@@ -95,11 +95,11 @@
         parent="menu_carburant_root"
         sequence="1"/>
     <menuitem
-        id="menu_cartecarburant_miss"
+        id="menu_suivi_essence_miss"
         name="Carte"
         groups="carburant.group_carburant_comptability,carburant.group_carburant_visiteur"
         parent="menu_carburant_carburant"
-        action="carburant_cartecarburant_action"
+        action="carburant_suivi_essence_action"
         sequence="1"/>
 
 </odoo>
