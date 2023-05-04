@@ -52,7 +52,6 @@
 
     <menuitem
         name="Carburant"
-        web_icon="carburant,static/description/icon.png"
         id="menu_carburant_root"/>
     <menuitem
         name="Carburant"
