@@ -92,6 +92,7 @@
         name="Carburant"
         id="menu_carburant_carburant"
         parent="menu_carburant_root"
+        web_icon="mission,static/description/icon.png"
         sequence="1"/>
     <menuitem
         id="menu_cartecarburant_miss"
