@@ -87,7 +87,9 @@
 
     <menuitem
         name="Carburant"
-        id="menu_carburant_root"/>
+        id="menu_carburant_root"
+        web_icon="carburant,static/description/icon.png"
+    />
     <menuitem
         name="Carburant"
         id="menu_carburant_carburant"
