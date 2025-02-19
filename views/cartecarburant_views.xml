@@ -16,7 +16,7 @@
                 <field name="detenteur"/>
                 <field name="numero"/>
                 <field name="type_carte"/>
-                <field name="fourniseur" domain="[('supplier_rank','>', 0)]"/>
+                <field name="fourniseur"/>
             </tree>
         </field>
     </record>
