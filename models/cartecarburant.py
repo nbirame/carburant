@@ -5,13 +5,21 @@ from odoo.exceptions import ValidationError
 class Carte(models.Model):
     _name = "carburant.cartecarburant"
     _description = "Carte de Carburant"
+    _inherit = ['mail.thread.cc',
+                'mail.thread.blacklist',
+                'mail.thread.phone',
+                'mail.activity.mixin',
+                'utm.mixin',
+                'format.address.mixin',
+                ]
 
     libelle = fields.Char(string="Libellé")
     detenteur = fields.Many2one("hr.employee", string="Détenteur carte", store=True)
     numero = fields.Integer(string="Numéro")
     type_carte = fields.Selection([('Personnelle', 'Personnelle'), ('Mission', 'Mission'), ], 'Type de Carte',
                                   default="Personnelle")
-    fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True)
+    fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True, check_company=True, index=True, tracking=10,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
     quantite = fields.Float(string="Quantité Totale", compute='_compute_carburant_quantite', store = True)
     nb_littre = fields.Float(string="Nombre de littre consommées", compute="_compute_carburant_nb_littre", store=True)
     restant_littre = fields.Float(string="Quantité actuelle", compute='_compute_carburant_restant_littre', store = True)
