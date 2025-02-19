@@ -34,7 +34,7 @@ class Carte(models.Model):
     # methode qui permet de calculer le nombre de littre consommer
     @api.onchange("consommation_ids")
     def _onchange_nb_littre(self):
-        carburant_consommer = 0
+        # carburant_consommer = 0
         carte = self.env["carburant.cartecarburant"].sudo().search([])
         for carburant in carte:
             carburant_consommer = carburant.nb_littre
