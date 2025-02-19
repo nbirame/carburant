@@ -11,8 +11,7 @@ class Carte(models.Model):
     numero = fields.Integer(string="Numéro")
     type_carte = fields.Selection([('Personnelle', 'Personnelle'), ('Mission', 'Mission'), ], 'Type de Carte',
                                   default="Personnelle")
-    fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True, check_company=True, index=True, tracking=10,
-        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",)
+    fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True)
     quantite = fields.Float(string="Quantité Totale", compute='_compute_carburant_quantite', store = True)
     nb_littre = fields.Float(string="Nombre de littre consommées", compute="_compute_carburant_nb_littre", store=True)
     restant_littre = fields.Float(string="Quantité actuelle", compute='_compute_carburant_restant_littre', store = True)
