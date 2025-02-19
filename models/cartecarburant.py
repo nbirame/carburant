@@ -5,13 +5,6 @@ from odoo.exceptions import ValidationError
 class Carte(models.Model):
     _name = "carburant.cartecarburant"
     _description = "Carte de Carburant"
-    _inherit = ['mail.thread.cc',
-                'mail.thread.blacklist',
-                'mail.thread.phone',
-                'mail.activity.mixin',
-                'utm.mixin',
-                'format.address.mixin',
-                ]
 
     libelle = fields.Char(string="Libellé")
     detenteur = fields.Many2one("hr.employee", string="Détenteur carte", store=True)
