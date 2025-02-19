@@ -13,7 +13,7 @@ class Carte(models.Model):
                                   default="Personnelle")
     fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True)
     quantite = fields.Float(string="Quantité Totale", compute='_compute_carburant_quantite', store = True)
-    nb_littre = fields.Float(string="Nombre de littre consommées", compute="_compute_carburant_nb_littre", store=True)
+    nb_littre = fields.Float(string="Nombre de littre consommées", store=True)
     restant_littre = fields.Float(string="Quantité actuelle", compute='_compute_carburant_restant_littre', store = True)
     montant = fields.Float(string="Montant" , compute="_compute_carburant_montant", store = True)
     montant_cons = fields.Float(string="Montant consommé", compute="_compute_carburant_montant_consommer", store = True)
@@ -32,8 +32,8 @@ class Carte(models.Model):
                 record.quantite = sum(quantity)
 
     # methode qui permet de calculer le nombre de littre consommer
-    @api.depends("consommation_ids")
-    def _compute_carburant_nb_littre(self):
+    @api.onchange("consommation_ids")
+    def _onchange_nb_littre(self):
         carburant_consommer = 0
         carte = self.env["carburant.cartecarburant"].sudo().search([])
         for carburant in carte:
