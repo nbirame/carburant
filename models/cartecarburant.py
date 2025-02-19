@@ -13,7 +13,7 @@ class Carte(models.Model):
                                   default="Personnelle")
     fourniseur = fields.Many2one("res.partner", string="Fournisseur", store=True)
     quantite = fields.Float(string="Quantité Totale", compute='_compute_carburant_quantite', store = True)
-    nb_littre = fields.Float(string="Nombre de littre consommées", store=True)
+    nb_littre = fields.Float(string="Nombre de littre consommées", compute="_compute_carburant_nb_littre", store=True)
     restant_littre = fields.Float(string="Quantité actuelle", compute='_compute_carburant_restant_littre', store = True)
     montant = fields.Float(string="Montant" , compute="_compute_carburant_montant", store = True)
     montant_cons = fields.Float(string="Montant consommé", compute="_compute_carburant_montant_consommer", store = True)
@@ -32,16 +32,20 @@ class Carte(models.Model):
                 record.quantite = sum(quantity)
 
     # methode qui permet de calculer le nombre de littre consommer
-    @api.onchange("consommation_ids")
-    def _onchange_nb_littre(self):
-        # carburant_consommer = 0
-        carte = self.env["carburant.cartecarburant"].sudo().search([])
-        for carburant in carte:
-            carburant_consommer = carburant.nb_littre
+    @api.depends("consommation_ids")
+    def _compute_carburant_nb_littre(self):
+        somme = []
         for record in self:
-            if record.consommation_ids:
-                for cons in record.consommation_ids[-1]:
-                    record.nb_littre = cons.delegation_id.carburant + carburant_consommer
+            for consma in record.consommation_ids:
+                somme.append(consma.nb_littre)
+                record.nb_littre = sum(somme)
+        # carte = self.env["carburant.cartecarburant"].sudo().search([])
+        # for carburant in carte:
+        #     carburant_consommer = carburant.nb_littre
+        # for record in self:
+        #     if record.consommation_ids:
+        #         for cons in record.consommation_ids[-1]:
+        #             record.nb_littre = cons.delegation_id.carburant + carburant_consommer
 
     # méthode qui permet de calculer le nombre de littre restant dans la carte de carburant en fonction du nombre
     # total de littre et du nombre de littre consommer
